@@ -282,12 +282,12 @@ async function fetchplaceid(id) {
 
 
 
-class Kerala extends React.Component {
+class Shimla extends React.Component {
 
     state = {
         tiers: [
             {
-                title: 'Varkala Beach',
+                title: 'Mountain Trek',
                 price: '0',
                 description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
                 buttonText: 'Sign up for free',
@@ -450,4 +450,4 @@ class Kerala extends React.Component {
         );
     }
 }
-export default withStyles(styles, { withTheme: true })(Kerala);
+export default withStyles(styles, { withTheme: true })(Shimla);

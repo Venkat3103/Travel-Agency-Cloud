@@ -282,7 +282,7 @@ async function fetchplaceid(id) {
 
 
 
-class Kerala extends React.Component {
+class Andaman extends React.Component {
 
     state = {
         tiers: [
@@ -450,4 +450,4 @@ class Kerala extends React.Component {
         );
     }
 }
-export default withStyles(styles, { withTheme: true })(Kerala);
+export default withStyles(styles, { withTheme: true })(Andaman);

@@ -20,12 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -93,7 +88,6 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: '40%',
     
   },
   form: {
@@ -117,66 +111,72 @@ const useStyles = makeStyles((theme) => ({
 const tiers = [
   {
     title: 'Kerala',
-    price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
-    buttonText: 'Sign up for free',
+    price: '14000',
+    link: '/Kerala',
+    description: ['5 Days', '4 Nights', 'Back Waters / Nature Park', 'House Boat Stay'],
+    buttonText: 'View Details',
     buttonVariant: 'outlined',
   },
   {
     title: 'Andaman',
     // subheader: 'Most popular',
-    price: '15',
+    price: '25000',
+    link: '/Andaman',
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
+      '6 Days',
+      '5 Nights',
+      'Beach / Island Trip / Water Sports ',
+      '4 star Hotel',
     ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained',
+    buttonText: 'View Details',
+    buttonVariant: 'outlined',
   },
   {
     title: 'Goa',
-    price: '30',
+    price: '35000',
+    link: '/Goa',
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
+      '5 Days',
+      '6 Nights',
+      'Scuba Dive / City Tour',
+      'Beach Resort',
     ],
-    buttonText: 'Contact us',
+    buttonText: 'View Details',
     buttonVariant: 'outlined',
   },
   {
     title: 'Shimla',
-    price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
-    buttonText: 'Sign up for free',
+    price: '20000',
+    link: '/Shimla',
+    description: ['5 Days', '6 Nights', 'Hiking / Paragliding / Ice Skating', 'Hill Cottage'],
+    buttonText: 'View Details',
     buttonVariant: 'outlined',
   },
   {
     title: 'Kashmir',
     // subheader: 'Most popular',
-    price: '15',
+    price: '40000',
+    link: '/Kashmir',
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
+      '6 Days',
+      '5 Nights',
+      'Skiing / Gondola / City Tour',
+      'Luxurious Boat House Stay',
     ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained',
+    buttonText: 'View Details',
+    buttonVariant: 'outlined',
   },
   {
     title: 'Coorg',
-    price: '30',
+    price: '23000',
+    link: '/Coorg',
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
+      '5 Days',
+      '4 Nights',
+      'Camping',
+      'Tree House',
     ],
-    buttonText: 'Contact us',
+    buttonText: 'View Details',
     buttonVariant: 'outlined',
   },
 ];
@@ -184,9 +184,44 @@ const tiers = [
 
 
 
+const handleSubmit = (e) => {
+
+  e.preventDefault();
+  e.persist();
+  let ev = e;
+  console.log(e.target);
+  axios
+    .post(`http://localhost:3001/registeruser`, {
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      phoneNumber: e.target.phoneNumber.value,
+      date: e.target.date.value,
+      Email: e.target.Email.value,
+      tourpackage: e.target.tourpackage.value,
+    })
+    .then(async (res) => {
+      // this.setState({
+      // //   snackbarMessage: res.data.message,
+      // //   open: true,
+      // //   snackbarColor: "green",
+      // //   tourpackage: "",
+      //  });
+      ev.target.reset();
+    })
+    .catch((err) => {
+      console.log(err);
+      // this.setState({
+      //   open: true,
+      //   snackbarMessage: err.response.data.message,
+      //   snackbarColor: "red",
+      // });
+    });
+};
+
 export default function Homepage() {
   const classes = useStyles();
   const [tourpackage, setTourPackage] = React.useState('');
+  
 
   const handleChange = (event) => {
     setTourPackage(event.target.value);
@@ -197,7 +232,7 @@ export default function Homepage() {
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle} >
             The Wanderers Tours & Travels
           </Typography>
           {/* <nav>
@@ -219,7 +254,7 @@ export default function Homepage() {
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
-          Welcome to Wanderers Tours and Travels
+          Welcome to The Wanderers Tours and Travels
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
           We at the Wanderers Tours and Travels offer the best holiday packages and services. We cover major cities across India and offer you our dream packages that would make you come back to us for more!
@@ -240,7 +275,7 @@ export default function Homepage() {
             <React.Fragment>
 
               <React.Fragment>
-                <div className={classes.buttons}>
+                <form className={classes.form} onSubmit={handleSubmit}>
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -265,8 +300,8 @@ export default function Homepage() {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="phone number"
-                        name="phone number"
+                        id="phoneNumber"
+                        name="phoneNumber"
                         label="Phone Number"
                         fullWidth
                         type="number"
@@ -274,11 +309,18 @@ export default function Homepage() {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField required id="Email" name="Email" label="Email" fullWidth />
+                      <TextField 
+                      required 
+                      id="Email" 
+                      name="Email" 
+                      label="Email" 
+                      type="email"
+                      fullWidth />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
+                        name="date"
                         id="date"
                         label="Start Date"
                         type="date"
@@ -299,6 +341,7 @@ export default function Homepage() {
                         <Select
                           labelId="demo-simple-select-placeholder-label-label"
                           id="demo-simple-select-placeholder-label"
+                          name="tourpackage"
                           value={tourpackage}
                           fullWidth
                           
@@ -308,23 +351,22 @@ export default function Homepage() {
                           <MenuItem value="">
                             <em>Your Package</em>
                           </MenuItem>
-                          <MenuItem value={"Package ID"}>Andaman</MenuItem>
-                          <MenuItem value={20}>Coorg</MenuItem>
-                          <MenuItem value={30}>Goa</MenuItem>
-                          <MenuItem value={40}>Kashmir</MenuItem>
-                          <MenuItem value={50}>Kerala</MenuItem>
-                          <MenuItem value={60}>Shimla</MenuItem>
+                          <MenuItem value={"AND100"}>Andaman</MenuItem>
+                          <MenuItem value={"COO101"}>Coorg</MenuItem>
+                          <MenuItem value={"GOA102"}>Goa</MenuItem>
+                          <MenuItem value={"KAS103"}>Kashmir</MenuItem>
+                          <MenuItem value={"KER104"}>Kerala</MenuItem>
+                          <MenuItem value={"SHI105"}>Shimla</MenuItem>
                         </Select>
                         {/* <FormHelperText>Label + placeholder</FormHelperText> */}
                       </FormControl>
                     </Grid>
 
                   </Grid>
-
-                </div>
-              </React.Fragment>
-              <div style={{justifyContent:"center"}}>
+                  <div style={{justifyContent:"center"}}>
               <Button
+                type="submit"
+                fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.button}
@@ -332,6 +374,8 @@ export default function Homepage() {
                 Submit
                 </Button>
               </div>
+              </form>
+              </React.Fragment>
               
             </React.Fragment>
           </Paper>
@@ -356,11 +400,11 @@ export default function Homepage() {
                 />
                 <CardContent>
                   <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                      ${tier.price}
+                    <Typography component="h2" variant="h4" color="textPrimary">
+                    ₹{tier.price}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                      /mo
+                      /person
                     </Typography>
                   </div>
                   <ul>
@@ -372,7 +416,7 @@ export default function Homepage() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary" href="/Kerala">
+                  <Button fullWidth variant={tier.buttonVariant} color="primary" href={tier.link}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>
