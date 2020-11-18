@@ -112,7 +112,7 @@ async function fetchplaceid(id) {
       .get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`)
       .then((res) => {
         placeDetails = res.result;
-    
+
     console.log(placeDetails.reviews[0]);
 
       })
@@ -125,51 +125,50 @@ async function fetchplaceid(id) {
 
 
 
-class Kerala extends React.Component {
+class Rajasthan extends React.Component {
 
     state = {
         tiers: [
             {
-                title: 'Varkala Beach',
-                price: '0',
-                description: ['The cliff beach also called the Pearl of Arabian Sea is a great spot to spend your time and stress relieving experience'],
+                title: 'Desert Safari Camp',
+                description: ['Take a tour in the desserts of Jaisalmar. The major fun activity in the desserts if Rajasthan'],
                 buttonText: 'View Details',
                 buttonVariant: 'outlined',
-                placeid: "ChIJ2TVuNRzvBTsRmTZF4PcgmlI"
+                placeid: "ChIJQROfkYG-RzkREJ2DcoZIwko"
             },
             {
-                title: 'Eravikulam National Park',
+                title: 'Hawa Mahal',
                 description: [
-                    'Enjoy your jungle safari in this famous animal hub and get yourself lost in all the green',
+                    'Built using the Red and Pink sandstone, this amazing palace stands tall in the city of Jaipur. This is one spot that tourists dont miss when they visit Rajasthan',
                 ],
-                placeid: "ChIJ4fVPfqqbBzsRoPgpZ-6Us-Q",
                 buttonText: 'View Details',
                 buttonVariant: 'outlined',
+                placeid: "ChIJpQvTG0uxbTkRDLLMHlNdDoY"
 
             },
             {
-                title: 'Mattupetty Dam',
+                title: 'Pushkar Lake',
                 description: [
-                    'Ideal boating location in between the mountains, Mattupetty Dam is a pit-stop in your trip to Munnar',
+                    'A sacred lake for the Hindu Devotees who gather in thousands to take a dip in its holy water. Its all extravaganza during the Pushkar fair which is worth the time!',
                 ],
-                placeid: "ChIJORIVRxicBzsRwTDeaHQwIM4",
                 buttonText: 'View Details',
                 buttonVariant: 'outlined',
+                placeid: "ChIJJ6cbdiLdazkRd5shyEnqla8"
             },
             {
-                title: 'Alleppey Boat House',
-                description: ['Pleseant stay in the calm and serene back waters of Alleppey. One surreal experience of sailing and resting in the back waters of Kerala'],
-                placeid: "ChIJ6ynPOVmECDsRWFDhNU1iMfQ",
+                title: 'Radisson Blu',
+                description: ['In the hottest of the cities, Radisson Blu is one cool luxurious place of stay preferred by the tourists'],
                 buttonText: 'View Details',
                 buttonVariant: 'outlined',
+                placeid: "ChIJczUCRO-1bTkRpZ6wbHTQtTQ"
             },
 
         ],
 
         placeDetails: "",
         openDialog: false,
-        reviews: [{ text: null }],
-        photos: [{ photo_reference: null }, { photo_reference: null }]
+        reviews: [{text:null}],
+        photos: [{photo_reference:null},{photo_reference:null}]
 
     }
 
@@ -177,10 +176,10 @@ class Kerala extends React.Component {
         this.setState({ openDialog: false });
     };
 
-    handleDialogOpen = async (event, id) => {
+    handleDialogOpen = async (event,id) => {
         event.preventDefault();
         let resdata = await fetchplaceid(id);
-        this.setState({ placeDetails: resdata, openDialog: true, reviews: resdata.reviews, photos: resdata.photos });
+        this.setState({ placeDetails: resdata, openDialog: true, reviews: resdata.reviews });
         console.log(this.state);
     };
 
@@ -200,10 +199,10 @@ class Kerala extends React.Component {
                 </AppBar>
                 {/* Hero unit */}
                 <Container maxWidth="sm" component="main" className={classes.heroContent}>
-                    <Typography component="h1" variant="h6" align="center" color="textPrimary" gutterBottom>
+                <Typography component="h1" variant="h6" align="center" color="textPrimary" gutterBottom>
                         TO GET FULL ITINERARY, CLICK THE BUTTON BELOW
                     </Typography>
-                    <Button fullWidth color="primary" onClick={()=>{window.open('https://travelagencytest.s3.amazonaws.com/KER104.pdf')}}>
+                    <Button fullWidth color="primary" >
                         Download Itinerary
                     </Button>
                 </Container>
@@ -232,7 +231,7 @@ class Kerala extends React.Component {
                                         className={classes.cardHeader}
                                     />
                                     <CardContent>
-
+                                        
                                         <ul>
                                             {tier.description.map((line) => (
                                                 <Typography component="li" variant="subtitle1" align="center" key={line}>
@@ -242,7 +241,7 @@ class Kerala extends React.Component {
                                         </ul>
                                     </CardContent>
                                     <CardActions>
-                                        <Button fullWidth variant={tier.buttonVariant} color="primary" onClick={(e) => this.handleDialogOpen(e, tier.placeid)}>
+                                        <Button fullWidth variant={tier.buttonVariant} color="primary"  onClick={(e) => this.handleDialogOpen(e,tier.placeid)}>
                                             {tier.buttonText}
                                         </Button>
                                     </CardActions>
@@ -257,7 +256,7 @@ class Kerala extends React.Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"Place Details"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             Name: {this.state.placeDetails.name}
@@ -279,16 +278,16 @@ class Kerala extends React.Component {
                             <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[1].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`} height="200px" width="200px" /></Grid>
                         </Grid>
                     </DialogContent>
-
+                    
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Close
-          </Button>
-
+                        </Button>
+                        
                     </DialogActions>
                 </Dialog>
             </React.Fragment>
         );
     }
 }
-export default withStyles(styles, { withTheme: true })(Kerala);
+export default withStyles(styles, { withTheme: true })(Rajasthan);

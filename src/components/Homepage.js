@@ -123,8 +123,8 @@ const tiers = [
     price: '25000',
     link: '/Andaman',
     description: [
-      '6 Days',
-      '5 Nights',
+      '5 Days',
+      '4 Nights',
       'Beach / Island Trip / Water Sports ',
       '4 star Hotel',
     ],
@@ -132,14 +132,14 @@ const tiers = [
     buttonVariant: 'outlined',
   },
   {
-    title: 'Goa',
+    title: 'Rajasthan',
     price: '35000',
-    link: '/Goa',
+    link: '/Rajasthan',
     description: [
       '5 Days',
-      '6 Nights',
-      'Scuba Dive / City Tour',
-      'Beach Resort',
+      '4 Nights',
+      'Dessert Safari / Palace Tour',
+      'Luxurious Stay',
     ],
     buttonText: 'View Details',
     buttonVariant: 'outlined',
@@ -148,7 +148,7 @@ const tiers = [
     title: 'Shimla',
     price: '20000',
     link: '/Shimla',
-    description: ['5 Days', '6 Nights', 'Hiking / Paragliding / Ice Skating', 'Hill Cottage'],
+    description: ['5 Days', '4 Nights', 'Hiking / Paragliding / Ice Skating', 'Luxury Hotel on Mountain Top'],
     buttonText: 'View Details',
     buttonVariant: 'outlined',
   },
@@ -191,7 +191,7 @@ const handleSubmit = (e) => {
   let ev = e;
   console.log(e.target);
   axios
-    .post(`http://localhost:3001/registeruser`, {
+    .post(`http://54.163.223.72:3001/registeruser`, {
       firstName: e.target.firstName.value,
       lastName: e.target.lastName.value,
       phoneNumber: e.target.phoneNumber.value,
@@ -218,10 +218,19 @@ const handleSubmit = (e) => {
     });
 };
 
+//for validations
+let FName = '';
+let LName = '';
+let phone = '';
+let email = '';
+
 export default function Homepage() {
   const classes = useStyles();
   const [tourpackage, setTourPackage] = React.useState('');
-  
+  const [FName,setFName] = React.useState('');
+  const [LName,setLName] = React.useState('');
+  const [phone,setPhone] = React.useState('');
+  const [email,setEmail] = React.useState('');
 
   const handleChange = (event) => {
     setTourPackage(event.target.value);
@@ -285,6 +294,14 @@ export default function Homepage() {
                         label="First name"
                         fullWidth
                         autoComplete="given-name"
+                        error={(FName.length === 0)? false : true}
+                        helperText={FName}
+                        onChange={(e) => {
+                          var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]+/;
+                          if (format.test(e.target.value)) setFName("Name cannot contain special symbols");            
+                          else setFName("");
+                        }}
+                        error={(FName.length === 0)? false : true}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -295,6 +312,14 @@ export default function Homepage() {
                         label="Last name"
                         fullWidth
                         autoComplete="family-name"
+                        helperText={LName}
+                        onChange={(e) => {
+                          var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]+/;
+                          if (format.test(e.target.value)) setLName("Name cannot contain special symbols");            
+                          else setLName ("");
+                          console.log(LName);
+                        }}
+                        error={(LName.length === 0)? false : true}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -306,6 +331,17 @@ export default function Homepage() {
                         fullWidth
                         type="number"
                         autoComplete="phone-number"
+                        error={(phone.length === 0)? false : true}
+                        helperText={phone}
+                        onChange={(e) => {
+                          var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?@.a-zA-Z]+/;
+                          var cformat = /[0-5]+/;
+                          if (format.test(e.target.value.toString()))  setPhone("Contact Number can contain only numbers") ;
+                          else if(e.target.value.length !== 10 ) setPhone("Contact Number must have 10 numbers");  
+                          else if (e.target.value.toString()[0].match(cformat)) setPhone("Please enter a valid contact number");  
+                          else setPhone("");
+                        }}
+                        error={(phone.length === 0)? false : true}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -315,6 +351,15 @@ export default function Homepage() {
                       name="Email" 
                       label="Email" 
                       type="email"
+                      error={(email.length === 0)? false : true}
+                        helperText={email}
+                        onChange={(e) => {
+                          var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/;
+                          if (format.test(e.target.value)) setEmail("Invalid Email Format");            
+                          else setEmail("");
+
+                        }}
+                        error={(email.length === 0)? false : true}
                       fullWidth />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -353,7 +398,7 @@ export default function Homepage() {
                           </MenuItem>
                           <MenuItem value={"AND100"}>Andaman</MenuItem>
                           <MenuItem value={"COO101"}>Coorg</MenuItem>
-                          <MenuItem value={"GOA102"}>Goa</MenuItem>
+                          <MenuItem value={"RAJ102"}>Rajasthan</MenuItem>
                           <MenuItem value={"KAS103"}>Kashmir</MenuItem>
                           <MenuItem value={"KER104"}>Kerala</MenuItem>
                           <MenuItem value={"SHI105"}>Shimla</MenuItem>
@@ -371,7 +416,7 @@ export default function Homepage() {
                 color="primary"
                 className={classes.button}
               >
-                Submit
+                Make an Enquiry
                 </Button>
               </div>
               </form>
