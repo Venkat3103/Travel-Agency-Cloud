@@ -109,11 +109,10 @@ const styles = (theme) => ({
 async function fetchplaceid(id) {
     let placeDetails = null;
     await axios
-      .get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`)
+      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`)
       .then((res) => {
-        placeDetails = res.result;
+        placeDetails = res.data.result;
     
-    console.log(placeDetails);
       })
       .catch((err) => {
         console.log(err);

@@ -20,6 +20,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import axios from 'axios';
 
 
@@ -184,6 +190,25 @@ const tiers = [
 
 
 
+
+//for validations
+let FName = '';
+let LName = '';
+let phone = '';
+let email = '';
+
+
+
+export default function Homepage() {
+  const classes = useStyles();
+  const [tourpackage, setTourPackage] = React.useState('');
+  const [FName,setFName] = React.useState('');
+  const [LName,setLName] = React.useState('');
+  const [phone,setPhone] = React.useState('');
+  const [email,setEmail] = React.useState('');
+  const [openDialog,setopenDialog] = React.useState(false);
+
+  
 const handleSubmit = (e) => {
 
   e.preventDefault();
@@ -200,48 +225,37 @@ const handleSubmit = (e) => {
       tourpackage: e.target.tourpackage.value,
     })
     .then(async (res) => {
-      // this.setState({
-      // //   snackbarMessage: res.data.message,
-      // //   open: true,
-      // //   snackbarColor: "green",
-      // //   tourpackage: "",
-      //  });
+      
       ev.target.reset();
     })
     .catch((err) => {
       console.log(err);
-      // this.setState({
-      //   open: true,
-      //   snackbarMessage: err.response.data.message,
-      //   snackbarColor: "red",
-      // });
+      
     });
+
+    handleDialogOpen();
 };
-
-//for validations
-let FName = '';
-let LName = '';
-let phone = '';
-let email = '';
-
-export default function Homepage() {
-  const classes = useStyles();
-  const [tourpackage, setTourPackage] = React.useState('');
-  const [FName,setFName] = React.useState('');
-  const [LName,setLName] = React.useState('');
-  const [phone,setPhone] = React.useState('');
-  const [email,setEmail] = React.useState('');
 
   const handleChange = (event) => {
     setTourPackage(event.target.value);
   };
+
+  const handleClose = (event) => {
+    setopenDialog(false);
+  };
+  
+  const handleDialogOpen = async (event) => {
+    event.preventDefault();
+    setopenDialog(true);
+  };
+
   
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle} >
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle} href='/' >
             The Wanderers Tours & Travels
           </Typography>
           {/* <nav>
@@ -415,11 +429,36 @@ export default function Homepage() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                
               >
                 Make an Enquiry
                 </Button>
               </div>
               </form>
+              <Dialog
+                    open={openDialog}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"ALERT"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Your Query Has Been Successfully Recorded.
+                            Our Executive Will Contact You Shortly!
+
+                            Thanks For Availing Our Service
+                        </DialogContentText>
+                        
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Close
+          </Button>
+
+                    </DialogActions>
+                </Dialog>
               </React.Fragment>
               
             </React.Fragment>
