@@ -177,7 +177,7 @@ class Coorg extends React.Component {
     handleDialogOpen = async (event,id) => {
         event.preventDefault();
         let resdata = await fetchplaceid(id);
-        this.setState({ placeDetails: resdata, openDialog: true, reviews: resdata.reviews });
+        this.setState({ placeDetails: resdata, openDialog: true, reviews: resdata.reviews, photos: resdata.photos  });
         console.log(this.state);
     };
 
