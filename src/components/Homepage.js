@@ -174,11 +174,11 @@ const tiers = [
   },
   {
     title: 'Coorg',
-    price: '23000',
+    price: '15000',
     link: '/Coorg',
     description: [
-      '5 Days',
-      '4 Nights',
+      '3 Days',
+      '2 Nights',
       'Camping',
       'Tree House',
     ],
@@ -216,7 +216,7 @@ const handleSubmit = (e) => {
   let ev = e;
   console.log(e.target);
   axios
-    .post(`http://54.163.223.72:3001/registeruser`, {
+    .post(`http://localhost:3001/registeruser`, {
       firstName: e.target.firstName.value,
       lastName: e.target.lastName.value,
       phoneNumber: e.target.phoneNumber.value,
@@ -244,8 +244,7 @@ const handleSubmit = (e) => {
     setopenDialog(false);
   };
   
-  const handleDialogOpen = async (event) => {
-    event.preventDefault();
+  const handleDialogOpen = async () => {
     setopenDialog(true);
   };
 

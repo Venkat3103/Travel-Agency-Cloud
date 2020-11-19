@@ -109,7 +109,7 @@ const styles = (theme) => ({
 async function fetchplaceid(id) {
     let placeDetails = null;
     await axios
-      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`)
+      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=YOUR-API-KEY`)
       .then((res) => {
         placeDetails = res.data.result;
 
@@ -149,7 +149,7 @@ class Kashmir extends React.Component {
                 description: [
                     'The famous shoreline garden in the city of Srinagar, The Garden of Delight or the Mughal garden is a spot filled with all breeds of flowers',
                 ],
-                placeid: '',
+                placeid: 'ChIJrSvr5ieE4TgRPZBfa0LuH_0',
                 buttonText: 'View Details',
                 buttonVariant: 'outlined',
             },
@@ -200,7 +200,7 @@ class Kashmir extends React.Component {
                 <Typography component="h1" variant="h6" align="center" color="textPrimary" gutterBottom>
                         TO GET FULL ITINERARY, CLICK THE BUTTON BELOW
                     </Typography>
-                    <Button fullWidth color="primary" >
+                    <Button fullWidth color="primary" onClick={()=>{window.open('https://travelagencybucket.s3.amazonaws.com/KAS103.pdf')}}>
                         Download Itinerary
                     </Button>
                 </Container>
@@ -229,14 +229,7 @@ class Kashmir extends React.Component {
                                         className={classes.cardHeader}
                                     />
                                     <CardContent>
-                                        <div className={classes.cardPricing}>
-                                            <Typography component="h2" variant="h3" color="textPrimary">
-                                                ${tier.price}
-                                            </Typography>
-                                            <Typography variant="h6" color="textSecondary">
-                                                /mo
-                      </Typography>
-                                        </div>
+                                       
                                         <ul>
                                             {tier.description.map((line) => (
                                                 <Typography component="li" variant="subtitle1" align="center" key={line}>
@@ -279,8 +272,8 @@ class Kashmir extends React.Component {
                             Recent Review: {this.state.reviews[0].text}
                         </DialogContentText>
                         <Grid container spacing={2} >
-                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[0].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`} height="200px" width="200px" /></Grid>
-                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[1].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`} height="200px" width="200px" /></Grid>
+                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[0].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=YOUR-API-KEY`} height="200px" width="200px" /></Grid>
+                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[1].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=YOUR-API-KEY`} height="200px" width="200px" /></Grid>
                         </Grid>
                     </DialogContent>
                     

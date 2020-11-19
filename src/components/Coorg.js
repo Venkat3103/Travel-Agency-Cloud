@@ -109,7 +109,7 @@ const styles = (theme) => ({
 async function fetchplaceid(id) {
     let placeDetails = null;
     await axios
-      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`)
+      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,address_component,formatted_address,business_status,photo,opening_hours,price_level,user_ratings_total,review&key=YOUR-API-KEY`)
       .then((res) => {
         placeDetails = res.data.result;
 
@@ -200,7 +200,7 @@ class Coorg extends React.Component {
                 <Typography component="h1" variant="h6" align="center" color="textPrimary" gutterBottom>
                         TO GET FULL ITINERARY, CLICK THE BUTTON BELOW
                     </Typography>
-                    <Button fullWidth color="primary" >
+                    <Button fullWidth color="primary" onClick={()=>{window.open('https://travelagencybucket.s3.amazonaws.com/COO101.pdf')}}>
                         Download Itinerary
                     </Button>
                 </Container>
@@ -272,8 +272,8 @@ class Coorg extends React.Component {
                             Recent Review: {this.state.reviews[0].text}
                         </DialogContentText>
                         <Grid container spacing={2} >
-                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[0].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`} height="200px" width="200px" /></Grid>
-                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[1].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=AIzaSyBFPJStQVwqsno0ArmAiGUtJ6AmXF4tNeE`} height="200px" width="200px" /></Grid>
+                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[0].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=YOUR-API-KEY`} height="200px" width="200px" /></Grid>
+                            <Grid item xs={6}><img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.photos[1].photo_reference}&sensor=false&maxheight=200&maxwidth=200&key=YOUR-API-KEY`} height="200px" width="200px" /></Grid>
                         </Grid>
                     </DialogContent>
                     
