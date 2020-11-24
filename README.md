@@ -1,3 +1,7 @@
+# Demo Pictures
+![Homepage1](https://github.com/Venkat3103/Travel-Agency-Cloud/blob/master/DemoPictures/Homepage1.PNG)
+![Homepage2](https://github.com/Venkat3103/Travel-Agency-Cloud/blob/master/DemoPictures/Homepage2.PNG)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
